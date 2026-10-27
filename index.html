@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090b20">
+  <title>MATHFEST — The Mathematical Arena</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="ambient" aria-hidden="true"><span>π</span><span>∑</span><span>√</span><span>∞</span><span>∠</span></div>
+  <header class="topbar">
+    <a class="brand" href="#welcome" aria-label="Mathfest home"><span class="brand-mark">M</span><span>MATHFEST<small>EVENT 04 · THE MATHEMATICAL ARENA</small></span></a>
+    <div class="top-actions"><span id="serverStatus" class="live-dot">CONNECTING TO ARENA</span><button id="fullscreenTop" class="icon-button" type="button" aria-label="Toggle full screen" title="Full screen">⛶</button></div>
+  </header>
+  <main id="app">
+    <div id="connectionNotice" class="connection-notice" role="status" hidden></div>
+    <section id="welcome" class="screen active" aria-labelledby="welcome-title">
+      <div class="hero-copy"><p class="eyebrow"><span></span> MATHFEST · EVENT 4</p><h1 id="welcome-title">THE MATHEMATICAL<br><em>ARENA</em></h1><p class="tagline">Think. Defend. Adapt.</p><p class="hero-note">Choose a mystery door. Reveal the challenge.<br>Defend your reasoning. Adapt when the rules change.</p><button class="button primary" id="enterButton" type="button">ENTER THE ARENA <span>↗</span></button></div>
+      <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="hero-core"><span>∑</span><b>THINK</b><small>BEYOND THE OBVIOUS</small></div><span class="math-float f1">x² + y²</span><span class="math-float f2">∠ 90°</span><span class="math-float f3">a + b = c</span><span class="math-float f4">π</span></div>
+      <div class="hero-foot"><span>01 / 04</span><span>AN INTERACTIVE MATHEMATICS CHALLENGE</span><span>SCROLL OR BEGIN ↓</span></div>
+    </section>
+
+    <section id="classes" class="screen" aria-labelledby="class-heading" hidden>
+      <div class="section-head"><p class="eyebrow"><span></span> SELECT YOUR DIVISION</p><h2 id="class-heading">Choose your <em>class</em></h2><p>Each division brings a new set of mathematical challenges.</p></div>
+      <div id="classGrid" class="class-grid"></div>
+      <button class="text-button back-welcome" type="button" data-nav="welcome">← Back to welcome</button>
+    </section>
+
+    <section id="doors" class="screen" aria-labelledby="door-heading" hidden>
+      <div class="door-header"><div><p class="eyebrow"><span></span> CLASS 9 · SCENARIO SELECTION</p><h2 id="door-heading">Choose your <em>mystery door</em></h2><p id="doorSubhead">Six challenges. One choice. The scenario stays hidden until you select a door.</p></div><div class="door-tools"><button id="randomButton" class="button primary" type="button">✦ RANDOM MYSTERY</button><button id="resetHistoryButton" class="button quiet" type="button" hidden>RESET USED DOORS</button></div></div>
+      <p id="historyMessage" class="status-message" role="status"></p>
+      <div id="doorGrid" class="door-grid"></div>
+      <button class="text-button" type="button" data-nav="classes">← Back to classes</button>
+    </section>
+
+    <section id="challenge" class="screen challenge-screen" aria-labelledby="challenge-heading" hidden>
+      <div class="challenge-heading"><div><p class="eyebrow"><span></span> <span id="challengeClass">CLASS 9</span> · <span id="challengeDoor">DOOR 01</span></p><h2 id="challenge-heading"></h2></div><div class="challenge-head-actions student-hidden"><button class="button quiet small" id="studentModeButton" type="button">STUDENT DISPLAY MODE</button><button class="icon-button" id="fullscreenChallenge" type="button" aria-label="Toggle full screen" title="Full screen">⛶</button></div></div>
+      <div id="studentBanner" class="student-banner" hidden>STUDENT DISPLAY · ANSWER KEY HIDDEN <button class="text-button" id="exitStudentMode" type="button">Exit student display</button></div>
+      <div class="challenge-layout">
+        <div class="cards-area">
+          <div id="cardGrid" class="card-grid"></div>
+          <div id="ruleChangeBox" class="rule-change" hidden><p class="eyebrow">✦ NEW CONDITION</p><h3>Rule-changer</h3><p id="ruleChangeText"></p></div>
+          <div class="student-hidden challenge-footer"><div id="completeBadge" class="complete-badge" hidden>✓ STAGE COMPLETE</div><button id="completeButton" class="button quiet" type="button">MARK STAGE COMPLETE</button><div class="stage-nav"><button class="text-button" id="backDoors" type="button">← Mystery doors</button><button class="text-button" id="backClasses" type="button">Class selection</button></div></div>
+        </div>
+        <aside class="organiser-panel student-hidden" aria-label="Organiser controls">
+          <div class="panel-top"><span class="panel-icon">⌘</span><div><h3>Organiser desk</h3><p>Controls &amp; private materials</p></div></div>
+          <div class="control-group"><p class="control-label">CHALLENGE FLOW</p><button id="reveal1" class="control-button" type="button"><span class="control-number">01</span><span>Reveal Card 1</span><span class="control-arrow">→</span></button><button id="reveal2" class="control-button" type="button" disabled><span class="control-number">02</span><span>Unlock Card 2</span><span class="control-arrow">→</span></button><button id="reveal3" class="control-button" type="button" disabled><span class="control-number">03</span><span>Unlock Card 3</span><span class="control-arrow">→</span></button></div>
+          <div class="control-group"><p class="control-label">HOST TOOLS</p><button id="answerToggle" class="control-button" type="button"><span>◉</span><span>Show Answer Key</span><span class="control-arrow">＋</span></button><button id="ruleButton" class="control-button" type="button"><span>✦</span><span>Introduce Rule-Changer</span><span class="control-arrow">→</span></button></div>
+          <div class="control-group timer-group"><p class="control-label">OPTIONAL TEAM TIMER</p><div class="timer-readout" id="timerReadout">05:00</div><label class="timer-duration">Minutes <input id="timerMinutes" type="number" min="1" max="180" value="5" aria-label="Timer duration in minutes"></label><div class="timer-actions"><button id="timerStart" class="button primary small" type="button">START</button><button id="timerPause" class="button quiet small" type="button" disabled>PAUSE</button><button id="timerReset" class="button quiet small" type="button">RESET</button></div></div>
+          <div class="control-group reset-controls"><button id="resetChallenge" class="control-button" type="button"><span>↺</span><span>New Team · Reset Cards</span><span class="control-arrow">→</span></button><button id="releaseDoor" class="control-button danger" type="button"><span>⇥</span><span>Release Door · Reset Arena</span><span class="control-arrow">→</span></button></div>
+          <p class="panel-footnote">Answer keys are visible on this laptop only. Hide them before projecting.</p>
+        </aside>
+      </div>
+      <section id="answerPanel" class="answer-panel" hidden aria-labelledby="answer-title"><div class="answer-title-row"><div><p class="eyebrow">PRIVATE HOST MATERIAL</p><h2 id="answer-title">ORGANISER ONLY <em>— ANSWER KEY</em></h2></div><button id="answerClose" class="icon-button" type="button" aria-label="Hide answer key">×</button></div><div id="answerContent" class="answer-content"></div></section>
+    </section>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </main>
+  <footer><span>MATHFEST <b>·</b> THE MATHEMATICAL ARENA</span><span>THINK <b>·</b> DEFEND <b>·</b> ADAPT</span></footer>
+</body>
+</html>
