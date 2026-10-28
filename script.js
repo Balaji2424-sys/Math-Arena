@@ -80,6 +80,7 @@ function localSnapshot(classId = state.classId) {
       title: scenario.title, doorIndex: active.doorIndex, stage: stored.stage, complete: stored.complete,
       ruleVisible: stored.ruleVisible,
       cards: [scenario.card1, scenario.card2, scenario.card3].map((text, index) => stored.stage >= index + 1 ? text : null),
+      cardLabels: scenario.cardLabels || null,
       options: stored.stage >= 3 ? (scenario.options || '') : '',
       ruleChanger: stored.ruleVisible ? scenario.ruleChanger : null, revision: stored.revision
     };
@@ -298,7 +299,7 @@ function renderCards() {
   if (!challenge) return;
   const grid = $('cardGrid');
   grid.replaceChildren();
-  const labels = ['INITIAL SCENARIO', 'ADDITIONAL FACTS', 'FINAL CHALLENGE'];
+  const labels = challenge.cardLabels || ['INITIAL SCENARIO', 'ADDITIONAL FACTS', 'FINAL CHALLENGE'];
   challenge.cards.forEach((text, index) => {
     const number = index + 1;
     const revealed = Boolean(text);
